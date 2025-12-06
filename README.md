@@ -1,7 +1,9 @@
-# Methane Watch - Frontend Dashboard
+# Methane Guard - Frontend Dashboard
+
+[**Live Demo**](https://methane-guard.netlify.app/)
 
 ## Overview
-The **Methane Watch** dashboard is a specialized real-time monitoring tool designed for satellite operations. It visualizes methane leak data detected via satellite imagery over the Azerbaijani region, specifically focusing on key infrastructure zones.
+The **Methane Guard** dashboard is a specialized real-time monitoring tool designed for satellite operations. It visualizes methane leak data detected via satellite imagery over the Azerbaijani region, specifically focusing on key infrastructure zones.
 
 The application provides a "Command Center" interface for operators to:
 - Monitor incoming leak alerts in real-time.
