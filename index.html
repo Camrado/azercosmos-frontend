@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caspian Methane Watch</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <header class="sidebar-header">
+                <h1>Caspian Methane Watch</h1>
+                <p>Satellite Operations</p>
+            </header>
+
+            <div class="control-group">
+                <h3>Report Dates</h3>
+                <div class="custom-select" id="custom-select">
+                    <div id="date-dropdown-trigger" class="select-trigger">
+                        <span>Select Date</span>
+                        <span class="arrow">&#9662;</span>
+                    </div>
+                    <ul id="date-list" class="select-options">
+                        <!-- Date items injected via JS -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- New Filters & Search -->
+            <div class="filters-section">
+                <input type="text" id="search-input" placeholder="Search ID or Location..." class="search-input">
+
+                <div class="checkbox-group">
+                    <label><input type="checkbox" checked value="High" class="filter-severity"> High</label>
+                    <label><input type="checkbox" checked value="Medium" class="filter-severity"> Medium</label>
+                    <label><input type="checkbox" checked value="Low" class="filter-severity"> Low</label>
+                </div>
+            </div>
+
+            <div class="stats-panel">
+                <div class="stat-card">
+                    <h3>Total Leaks</h3>
+                    <span id="total-leaks-count">0</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Pending</h3>
+                    <span id="pending-count">0</span>
+                </div>
+            </div>
+
+            <div class="sidebar-actions">
+                <button id="btn-analytics" class="secondary-btn">View Analytics</button>
+                <button id="btn-export" class="secondary-btn">Export CSV</button>
+            </div>
+
+            <div class="alert-feed">
+                <h2>Alert Feed</h2>
+                <ul id="alert-list" class="alert-list">
+                    <!-- Alert items will be injected here -->
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Map Area -->
+        <main class="map-container">
+            <div id="map"></div>
+        </main>
+    </div>
+
+    <!-- Action Panel Overlay (Hidden by default) -->
+    <div id="action-panel-overlay" class="overlay hidden">
+        <div class="action-panel">
+            <div class="panel-header">
+                <h2 id="panel-title">Leak Details</h2>
+                <button id="close-panel" class="close-btn">&times;</button>
+            </div>
+            <div class="panel-content">
+                <div class="detail-row">
+                    <span class="label">Leak ID:</span>
+                    <span id="detail-id" class="value">--</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Date:</span>
+                    <span id="detail-date" class="value">--</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Severity:</span>
+                    <span id="detail-severity" class="value">--</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Detected By:</span>
+                    <span id="detail-source" class="value">--</span>
+                </div>
+                <div class="detail-row">
+                    <span class="label">Status:</span>
+                    <span id="detail-status" class="value status-badge">--</span>
+                </div>
+
+                <div class="actions">
+                    <h3>Actions</h3>
+                    <button id="btn-dispatch" class="action-btn dispatch">Dispatch Inspection Team</button>
+
+                    <div class="feedback-section">
+                        <h4>Field Feedback</h4>
+                        <select id="feedback-select">
+                            <option value="verified">Confirmed Leak</option>
+                            <option value="false_positive">False Alarm</option>
+                        </select>
+                        <button id="btn-feedback" class="action-btn feedback">Update Status</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analytics Modal (Hidden) -->
+    <div id="analytics-modal" class="overlay hidden">
+        <div class="modal-card">
+            <div class="panel-header">
+                <h2>Analytics Dashboard</h2>
+                <button id="close-analytics" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-content">
+                <div class="chart-container">
+                    <canvas id="severityChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="statusChart"></canvas>
+                </div>
+                <div class="chart-container full-width">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- SockJS & StompJS -->
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+
+</html>
