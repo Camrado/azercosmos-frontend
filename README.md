@@ -1,7 +1,7 @@
-# Caspian Methane Watch - Frontend Dashboard
+# Methane Watch - Frontend Dashboard
 
 ## Overview
-The **Caspian Methane Watch** dashboard is a specialized real-time monitoring tool designed for satellite operations. It visualizes methane leak data detected via satellite imagery over the Caspian Sea region, specifically focusing on key infrastructure zones.
+The **Methane Watch** dashboard is a specialized real-time monitoring tool designed for satellite operations. It visualizes methane leak data detected via satellite imagery over the Azerbaijani region, specifically focusing on key infrastructure zones.
 
 The application provides a "Command Center" interface for operators to:
 - Monitor incoming leak alerts in real-time.
